@@ -4,6 +4,8 @@
 
 #include "control_element.h"
 #include "button.h"
+#include "plot_classes.h"
+#include "AnaliticFunctionReader.h"
 #include <SFML/Graphics.hpp>
 #include <memory>
 
@@ -16,13 +18,15 @@ class GUI : public sf::Drawable {
     sf::Vector2f _control_panel_size = {0, 0};
     sf::Vector2f _display_panel_size = {0, 0};
 
+    AnaliticFunctionReader* _reader;
+    FunctionPlot2D _plot;
+
     std::vector< ControlElement*> _controls;
     std::map<int, void (GUI::*)()> _function_map; //it maps int (which is element id) to GUI method
-
-    int _tone = { 0 };  
+    std::map<std::string, ControlElement*> _call_function_by_name;
 
     protected:
-        bool checkControl( const ControlElement& button, sf::Vector2i click_pos ) const;
+        bool checkControl( const ControlElement& button, sf::Vector2f click_pos ) const;
         void add(  ControlElement* c_el );
         void connect( ControlElement* c_el, void (GUI::*method)() );
 
@@ -38,6 +42,7 @@ class GUI : public sf::Drawable {
         void loadFunctionFromFile();
         void loadFuncitonFromHand();
         void textFieldInput();
+        void drawFunction();
 };
 
 //#endif //__GUI__

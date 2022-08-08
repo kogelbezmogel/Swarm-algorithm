@@ -1,8 +1,8 @@
 all: compile link
 
 compile: 
-	g++ -std=c++17 -c main.cpp text_field.cpp button.cpp control_element.cpp gui.cpp -I"C:\Users\Administrator\Documents\libraries\SFML-2.5.1 32-bit\SFML-2.5.1\include"
+	g++ -std=c++17 -c src/main.cpp src/plot_classes.cpp src/AnaliticFunctionReader.cpp src/BasicFunctions.cpp src/text_field.cpp src/button.cpp src/control_element.cpp src/gui.cpp -I"C:\Users\Administrator\Documents\libraries\SFML-2.5.1 32-bit\SFML-2.5.1\include"
 
 
 link:
-	g++	-std=c++17 main.o text_field.o control_element.o button.o gui.o -o build/main -L"C:\Users\Administrator\Documents\libraries\SFML-2.5.1 32-bit\SFML-2.5.1\lib" -lsfml-graphics -lsfml-window -lsfml-system
+	g++	-std=c++17 main.o AnaliticFunctionReader.o BasicFunctions.o plot_classes.o text_field.o button.o control_element.o gui.o -o build/main -L"C:\Users\Administrator\Documents\libraries\SFML-2.5.1 32-bit\SFML-2.5.1\lib" -lsfml-graphics -lsfml-window -lsfml-system

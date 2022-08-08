@@ -12,24 +12,24 @@ class Button : public ControlElement {
     sf::RectangleShape _body;
     sf::Text _text;
     sf::Font _font;
-    sf::Vector2i _whole_size;
-    std::function< void(void) > _fun = [](){ std::cout << "I don't have function\n"; };
+    sf::Vector2f _whole_size;
+    sf::Vector2f _min_size;
+    std::function< void(void) > _fun = [](){ };
     int _outline_thickness = { 2 };
-    
 
     public:
-        Button( std::string text, sf::Vector2f pos, sf::Vector2f size );
+        Button( std::string text, sf::Vector2f pos, int font_size, sf::Vector2f size = sf::Vector2f(0, 0) );
         virtual ~Button() { }
 
         void clicked() override;
         void released() override;
         void lost_focus() override { }
 
-        void setPosition( sf::Vector2i vec ) override;
+        void setPosition( sf::Vector2f vec ) override;
         void setFunctionality( std::function< void(void) > fun );
         
-        sf::Vector2i getPosition() const override;
-        sf::Vector2i getSize() const override;
+        sf::Vector2f getPosition() const override;
+        sf::Vector2f getSize() const override;
 
         //void setHeight( int arg );
         //void setWidth( int arg );

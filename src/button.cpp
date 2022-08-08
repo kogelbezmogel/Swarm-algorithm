@@ -1,30 +1,36 @@
 #include "button.h"
 
-Button::Button( std::string text, sf::Vector2f pos, sf::Vector2f size ) {
-    _whole_size = sf::Vector2i( size.x, size.y );
+Button::Button(std::string text, sf::Vector2f pos, int font_size, sf::Vector2f size ): ControlElement(text) {
 
-    _font.loadFromFile("arial.ttf");
+    _font.loadFromFile("Arial.ttf");
+
+    _whole_size = sf::Vector2f( size.x, size.y );
+    _min_size = sf::Vector2f( font_size * text.length() * 3. / 5 + 4, font_size * 1.8 );
+    
+    if( _min_size.x >_whole_size.x || _min_size.y > _whole_size.y ) {
+        _whole_size = sf::Vector2f( std::max(_min_size.x, _whole_size.x), std::max(_min_size.y, _whole_size.y) );
+    }
 
     _text.setFont(_font);
     _text.setString(text);
     _text.setStyle( sf::Text::Bold );
     _text.setFillColor( sf::Color::Black );
 
-    _body = sf::RectangleShape( sf::Vector2f( size.x - 2 * _outline_thickness, size.y - 2 * _outline_thickness ) );
+    _body = sf::RectangleShape( sf::Vector2f( _whole_size.x - 2 * _outline_thickness, _whole_size.y - 2 * _outline_thickness ) );
     _body.setFillColor( sf::Color(200, 200, 200) );
     _body.setOutlineColor( sf::Color(100, 100, 100) );
     _body.setOutlineThickness( _outline_thickness );
 
     _body.setPosition(pos.x + _outline_thickness, pos.y + _outline_thickness);
-    _text.setCharacterSize( size.y / 2 );
-    _text.setPosition( pos.x + _outline_thickness + 2, pos.y  + _outline_thickness + 1 );
+    _text.setCharacterSize( font_size );
+    _text.setPosition( pos.x + _outline_thickness, pos.y  + _outline_thickness );
 }
 
 
 //setters
-void Button::setPosition( sf::Vector2i vec ) {
+void Button::setPosition( sf::Vector2f vec ) {
     _body.setPosition( vec.x + _outline_thickness, vec.y + _outline_thickness );
-    _text.setPosition( vec.x + _outline_thickness + 2, vec.y + _outline_thickness + 1 );
+    _text.setPosition( vec.x + _outline_thickness + 4, vec.y + _outline_thickness + (_whole_size.y - _min_size.y) / 2 );
 }
 
 void Button::setFunctionality( std::function<void(void)> fun ) { _fun = fun; }
@@ -41,17 +47,16 @@ void Button::released() {
     _body.setFillColor( sf::Color(200, 200, 200) );
     _body.setOutlineColor( sf::Color(100, 100, 100) );
     _body.setOutlineThickness( _outline_thickness );
-    
 }
 
 
 
 //getters
-sf::Vector2i Button::getPosition() const {
-    return sf::Vector2i( _body.getPosition().x - _outline_thickness, _body.getPosition().y - _outline_thickness );
+sf::Vector2f Button::getPosition() const {
+    return sf::Vector2f( _body.getPosition().x - _outline_thickness, _body.getPosition().y - _outline_thickness );
 }
 
-sf::Vector2i Button::getSize() const {
+sf::Vector2f Button::getSize() const {
     return _whole_size;
 }
 
