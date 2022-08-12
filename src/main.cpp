@@ -24,7 +24,7 @@ int main()
                     std::cout << "click\n";
                     gui.handleGuiClick(event);
                 }
-            if (event.type == sf::Event::TextEntered) {
+            if (event.type == sf::Event::TextEntered || sf::Event::KeyPressed) {
                 gui.handleButtonClick(event);
             }
             if (event.type == sf::Event::MouseButtonReleased) {

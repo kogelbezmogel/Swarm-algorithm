@@ -99,8 +99,11 @@ void GUI::handleButtonClick( sf::Event& event ) {
 
     for( auto el : _controls ) {
         tf_ptr = dynamic_cast<TextField*>(el);
-        if( tf_ptr ) {
-            tf_ptr -> buttonClicked( event );
+        if( tf_ptr && tf_ptr->onMode() ) {
+            if( event.type == sf::Event::KeyPressed )        
+                tf_ptr -> keyPressed( event );
+            else if( event.type == sf::Event::TextEntered )
+                tf_ptr -> textEntered( event );
         }
     }
 }
