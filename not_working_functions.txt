@@ -1,5 +1,6 @@
     DO POPRAWY
 
-1.  x               ( za krotka linia i algorytm tego nie lapie)
-2.  0.5 * x         (jakis problem z ulamkami dziesietnymi moze jest uzyte stoi() )
-3.                  (brak sprawdzania poprawnosci napisu) 
+1.  x                   ( za krotka linia i algorytm tego nie lapie)
+2.  0.5 * x             (jakis problem z ulamkami dziesietnymi moze jest uzyte stoi() )
+3.                      (brak sprawdzania poprawnosci napisu) 
+4. x^3 - x^5 + 10 * x   (nie mam pojcia czemu nie dziala)

@@ -19,7 +19,7 @@ class GUI : public sf::Drawable {
     sf::Vector2f _display_panel_size = {0, 0};
 
     AnaliticFunctionReader* _reader;
-    FunctionPlot2D _plot;
+    FunctionPlot2D* _plot;
 
     std::vector< ControlElement*> _controls;
     std::map<int, void (GUI::*)()> _function_map; //it maps int (which is element id) to GUI method
@@ -32,6 +32,7 @@ class GUI : public sf::Drawable {
 
     public:
         GUI( sf::Vector2f size );
+        ~GUI();
         virtual void draw(sf::RenderTarget& r_trg, sf::RenderStates r_sts) const override;
 
         void handleGuiClick( sf::Event event );

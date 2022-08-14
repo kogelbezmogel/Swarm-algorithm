@@ -10,12 +10,16 @@
 class Button : public ControlElement {
 
     sf::RectangleShape _body;
+    sf::RectangleShape _body_bold;
     sf::Text _text;
     sf::Font _font;
     sf::Vector2f _whole_size;
     sf::Vector2f _min_size;
     std::function< void(void) > _fun = [](){ };
     int _outline_thickness = { 2 };
+
+    mutable bool _activated = { false };
+    mutable int _counter;
 
     public:
         Button( std::string text, sf::Vector2f pos, int font_size, sf::Vector2f size = sf::Vector2f(0, 0) );

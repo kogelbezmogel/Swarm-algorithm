@@ -28,6 +28,7 @@ class FunctionPlot2D : public sf::Drawable {
 
 	int _amount_of_back_lines_x = { 10 };
 	int _amount_of_back_lines_y = { 10 };
+	int _margin_around_plot = { 25 };
 
 	sf::Text _x_unit;
 	sf::Text _y_unit;
@@ -36,6 +37,8 @@ class FunctionPlot2D : public sf::Drawable {
 	sf::Text _y_axis_label;
 	sf::Font _font;
 
+	sf::Text text;
+	std::vector<sf::Text> test_text;
 	std::vector<sf::Text> _x_axis_values;
 	std::vector<sf::Text> _y_axis_values;
 

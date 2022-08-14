@@ -24,6 +24,11 @@ Button::Button(std::string text, sf::Vector2f pos, int font_size, sf::Vector2f s
     _body.setPosition(pos.x + _outline_thickness, pos.y + _outline_thickness);
     _text.setCharacterSize( font_size );
     _text.setPosition( pos.x + _outline_thickness, pos.y  + _outline_thickness );
+
+    _body_bold.setFillColor( sf::Color(130, 130, 130) );
+    _body_bold.setOutlineColor( sf::Color(70, 70, 70) );
+    _body_bold.setOutlineThickness( _outline_thickness + 1 );
+
 }
 
 
@@ -35,18 +40,15 @@ void Button::setPosition( sf::Vector2f vec ) {
 
 void Button::setFunctionality( std::function<void(void)> fun ) { _fun = fun; }
 
+
 void Button::clicked() {
-    _body.setFillColor( sf::Color(130, 130, 130) );
-    _body.setOutlineColor( sf::Color(70, 70, 70) );
-    _body.setOutlineThickness( _outline_thickness + 1 );
-    if( _fun )
-        _fun();
+    _activated = true;
 }
 
 void Button::released() {
-    _body.setFillColor( sf::Color(200, 200, 200) );
-    _body.setOutlineColor( sf::Color(100, 100, 100) );
-    _body.setOutlineThickness( _outline_thickness );
+    //_body.setFillColor( sf::Color(200, 200, 200) );
+    //_body.setOutlineColor( sf::Color(100, 100, 100) );
+    //_body.setOutlineThickness( _outline_thickness );
 }
 
 
@@ -69,6 +71,13 @@ Button* Button::pointer() {
 }
 
 void Button::draw( sf::RenderTarget& r_trg, sf::RenderStates r_sts ) const {
-    r_trg.draw( _body, r_sts );
+    if( _activated ) {
+        r_trg.draw( _body_bold, r_sts );
+
+        if( _counter < 15 ) ++_counter;
+        else { _activated = false; _counter = 0; }
+    }
+    else
+        r_trg.draw(_body, r_sts);
     r_trg.draw( _text, r_sts );
 }

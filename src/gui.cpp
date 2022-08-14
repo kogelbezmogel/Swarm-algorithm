@@ -11,16 +11,16 @@ GUI::GUI( sf::Vector2f size ) {
     _main_size = size;
     _display_panel_pos = sf::Vector2f(0, 0);
     _control_panel_pos = sf::Vector2f(0, int(size.y * 4 / 5) );
+    _plot = new FunctionPlot2D();
 
     Button* load_from_file_button = new Button( "Zaladuj funkjce z pliku", sf::Vector2f(0, 0), 15 );
     Button* load_from_hand_button = new Button( "Wpisz funkcje recznie", sf::Vector2f(400, 0), 15 );
     Button* draw_plot_button = new Button( "Narysuj funkcje", sf::Vector2f(0, 50), 15 );
-    
+    TextField* text_field = new TextField( "Pole tekstowe z funkcja", sf::Vector2f(0, 100), sf::Vector2f(200, 20) );
+
     connect( load_from_file_button, &GUI::loadFunctionFromFile );
     connect( load_from_hand_button, &GUI::loadFuncitonFromHand );
     connect( draw_plot_button, &GUI::drawFunction );
-
-    TextField* text_field = new TextField( "Pole tekstowe z funkcja", sf::Vector2f(0, 100), sf::Vector2f(200, 20) );
     connect( text_field, &GUI::textFieldInput );
 
     add( load_from_file_button );
@@ -28,6 +28,13 @@ GUI::GUI( sf::Vector2f size ) {
     add( text_field );
     add( draw_plot_button ); 
     //end
+}
+
+GUI::~GUI() {
+    if( _plot ) delete _plot;
+    if( _reader ) delete _reader;
+    for( ControlElement* el : _controls )
+        delete el;
 }
 
 void GUI::draw(sf::RenderTarget& r_trg, sf::RenderStates r_sts) const {
@@ -42,7 +49,7 @@ void GUI::draw(sf::RenderTarget& r_trg, sf::RenderStates r_sts) const {
 
     r_trg.draw(draw_panel, r_sts);
     r_trg.draw(control_panel, r_sts);
-    r_trg.draw(_plot);
+    r_trg.draw(*_plot);
 
     for(  ControlElement* c : _controls )
         r_trg.draw(*c, r_sts);
@@ -138,7 +145,7 @@ void GUI::drawFunction() {
         i += 0.01;
     }
 
-    _plot = FunctionPlot2D( fun_points, 5, -5, 5, -5, sf::Vector2f(800, 400) );
+    _plot = new FunctionPlot2D( fun_points, 5, -5, 5, -5, sf::Vector2f(800, 400) );
 
 }
 
