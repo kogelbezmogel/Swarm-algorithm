@@ -4,3 +4,6 @@
 2.  0.5 * x             (jakis problem z ulamkami dziesietnymi moze jest uzyte stoi() )
 3.                      (brak sprawdzania poprawnosci napisu) 
 4. x^3 - x^5 + 10 * x   (nie mam pojcia czemu nie dziala)
+
+2 i 4 wynikają ze słego przesunięcia np 10 interpretowane jako 10 ale wycinane jest tylko 0
+dla 0.5 interpretowane jest jako 0.5 ale wycynając 0 nadal zostaje .5 do zinterpretowania
